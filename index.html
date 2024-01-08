@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de usuários</title>
+</head>
+<body>
+  <h1>Lista de usuários</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Código</th>
+        <th>Cidade</th>
+      </tr>
+    </thead>
+    <tbody>
+      <script>
+        const usuarios = [
+          {
+            nome: "JACKSON DA SILVA DUARTE",
+            código: "UZ34063",
+            cidade: "BELO HORIZONTE",
+          },
+          {
+            nome: "Felipe Max de Paula Ferreira",
+            código: "UB03882",
+            cidade: "BELO HORIZONTE",
+          },
+          // ...
+        ];
+
+        const usuariosPorCidade = usuarios.reduce((mapa, usuario) => {
+          const cidade = usuario.cidade;
+
+          if (!mapa.hasOwnProperty(cidade)) {
+            mapa[cidade] = [];
+          }
+
+          mapa[cidade].push(usuario.código);
+
+          return mapa;
+        }, {});
+
+        const tabela = document.querySelector("table");
+
+        Object.keys(usuariosPorCidade).forEach((cidade) => {
+          const tr = document.createElement("tr");
+
+          tr.innerHTML = `
+            <td>${cidade}</td>
+            <td>${usuariosPorCidade[cidade].join(", ")}</td>
+          `;
+
+          tabela.appendChild(tr);
+        });
+      </script>
+    </tbody>
+  </table>
+</body>
+</html>
